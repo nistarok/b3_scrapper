@@ -23,6 +23,7 @@ jobs:
     - name: Install Chrome and ChromeDriver
       uses: browser-actions/setup-chrome@v1
       with:
+        chrome-version: 131
         install-chromedriver: true
 
 
