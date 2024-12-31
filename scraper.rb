@@ -4,9 +4,8 @@ require "csv"
 def get_fundamentus_info(driver, url, filename = "output.csv")
   puts "Iniciando arquivo #{filename} da url #{url}"
   driver.get(url)
-  wait = Selenium::WebDriver::Wait.new(timeout: 30)
+  wait = Selenium::WebDriver::Wait.new(timeout: 20)
   wait.until do
-    puts "dentro wait"
     ready_state = driver.execute_script('return document.readyState')
     ready_state == 'complete'
   end
@@ -16,7 +15,6 @@ def get_fundamentus_info(driver, url, filename = "output.csv")
   # puts header.first.text
   puts "Pegando as info"
   header = header.first.text.gsub("\n", "\t")
-  puts header #{header}
   CSV.open(filename, "w", write_headers: true, headers: header, col_sep: "\t") do |line|
     puts "Criando arquivo"
     rows.each_with_index do |row, index|
