@@ -4,10 +4,12 @@ require 'csv'
 def get_fundamentus_info driver, url, filename = 'output.csv'
   puts "Iniciando arquivo #{filename} da url #{url}"
   driver.get(url)
-  header = driver.find_elements(css: 'thead')
-  tbody = driver.find_elements(css: 'tbody[aria-live="polite"]')
-  rows = tbody.first.find_elements(css: 'tr')
+  # header = driver.find_elements(css: 'thead')
+  # tbody = driver.find_elements(css: 'tbody[aria-live="polite"]')
+  # rows = tbody.first.find_elements(css: 'tr')
   # puts header.first.text
+
+  puts driver.page_source
 
   header = header.first.text.gsub("\n","\t")
   CSV.open( filename, 'w', write_headers: true, headers: header, col_sep: "\t") do |line|
