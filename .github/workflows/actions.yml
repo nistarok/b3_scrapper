@@ -15,17 +15,16 @@ jobs:
       with:
         ruby-version: '3.2'
 
-    - name: Install Dependencies with Bundler
-      run: |
-        gem install bundler
-        bundle install
-
     - name: Install Chrome and ChromeDriver
       uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: 131
         install-chromedriver: true
 
+    - name: Install Dependencies with Bundler
+      run: |
+        gem install bundler
+        bundle install
 
     - name: Run Scraper
       run: bundle exec ruby scraper.rb
