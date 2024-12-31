@@ -6,7 +6,7 @@ def get_fundamentus_info driver, url, filename = 'output.csv'
   driver.get(url)
   header = driver.find_elements(css: 'thead')
   tbody = driver.find_elements(css: 'tbody[aria-live="polite"]')
-
+  puts driver.text
   rows = tbody.first.find_elements(css: 'tr')
   # puts header.first.text
 
