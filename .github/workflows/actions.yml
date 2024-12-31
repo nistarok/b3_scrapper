@@ -1,7 +1,6 @@
 name: Selenium Scraper
 
-on:
-  workflow_dispatch: ['workflow_dispatch']
+on: ['workflow_dispatch']
 
 jobs:
   scrape:
