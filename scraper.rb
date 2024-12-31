@@ -1,7 +1,21 @@
 require "selenium-webdriver"
 require "csv"
 
-def get_fundamentus_info(driver, url, filename = "output.csv")
+def get_fundamentus_info(url, filename = "output.csv")
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument("--headless")
+  options.add_argument('--disable-blink-features=AutomationControlled')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+  options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36')
+  options.add_argument("--disable-infobars")  # Desabilita a barra de informações
+  options.add_argument("--disable-extensions")  # Desabilita extensões
+  options.add_argument("--disable-gpu")  # Desabilita aceleração de GPU
+  options.add_argument("--remote-debugging-port=9222")  # Habilita a depuração remota para análise
+
+
+  driver = Selenium::WebDriver.for :chrome, options: options
+
   puts "Iniciando arquivo #{filename} da url #{url}"
   driver.get(url)
   wait = Selenium::WebDriver::Wait.new(timeout: 20)
@@ -24,23 +38,12 @@ def get_fundamentus_info(driver, url, filename = "output.csv")
   end
 
   puts "Arquivo gerado #{filename}"
+  driver.quit
+  true
 end
 
-options = Selenium::WebDriver::Chrome::Options.new
-options.add_argument("--headless")
-options.add_argument('--disable-blink-features=AutomationControlled')
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
-options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36')
-options.add_argument("--disable-infobars")  # Desabilita a barra de informações
-options.add_argument("--disable-extensions")  # Desabilita extensões
-options.add_argument("--disable-gpu")  # Desabilita aceleração de GPU
-options.add_argument("--remote-debugging-port=9222")  # Habilita a depuração remota para análise
 
 
-driver = Selenium::WebDriver.for :chrome, options: options
+get_fundamentus_info  "https://fundamentus.com.br/resultado.php?interface=classic&interface=mobile", "acoes.csv"
+get_fundamentus_info  "https://fundamentus.com.br/fii_resultado.php?interface=classic&interface=mobile", "fiis.csv"
 
-get_fundamentus_info driver, "https://fundamentus.com.br/resultado.php?interface=classic&interface=mobile", "acoes.csv"
-get_fundamentus_info driver, "https://fundamentus.com.br/fii_resultado.php?interface=classic&interface=mobile", "fiis.csv"
-
-driver.quit
