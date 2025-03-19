@@ -20,7 +20,7 @@ jobs:
     - name: Install Chrome and ChromeDriver
       uses: browser-actions/setup-chrome@v1
       with:
-        chrome-version: 131
+        chrome-version: 134
         install-chromedriver: true
 
     - name: Install Dependencies with Bundler
